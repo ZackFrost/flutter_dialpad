@@ -15,6 +15,7 @@ class DialPad extends StatefulWidget {
   final Color dialedNumberColor;
   final String outputMask;
   final bool enableDtmf;
+  final bool enableCharacters;
 
   DialPad(
       {this.makeCall,
@@ -25,6 +26,7 @@ class DialPad extends StatefulWidget {
       this.dialButtonIconColor,
       this.backspaceButtonIconColor,
       this.dialedNumberColor,  
+      this.enableCharacters = false,
       this.enableDtmf});
 
   @override
@@ -83,7 +85,7 @@ class _DialPadState extends State<DialPad> {
 
       items.add(DialButton(
         title: mainTitle[i],
-        subtitle: subTitle[i],
+        subtitle: enableCharacters? subTitle[i] : null,
         color: widget.buttonColor,
         textColor: widget.buttonTextColor,
         onTap: _setText,
