@@ -85,7 +85,7 @@ class _DialPadState extends State<DialPad> {
 
       items.add(DialButton(
         title: mainTitle[i],
-        subtitle: enableCharacters? subTitle[i] : null,
+        subtitle: widget.enableCharacters? subTitle[i] : null,
         color: widget.buttonColor,
         textColor: widget.buttonTextColor,
         onTap: _setText,
