@@ -119,7 +119,8 @@ class _DialPadState extends State<DialPad> {
               controller: textEditingController,
             ),
           ),
-          Expanded(),
+          Expanded(
+          child: Container()),
           ..._getDialerButtons(),
           SizedBox(
             height: 15,
