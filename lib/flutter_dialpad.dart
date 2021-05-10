@@ -119,6 +119,7 @@ class _DialPadState extends State<DialPad> {
               controller: textEditingController,
             ),
           ),
+          Expanded(),
           ..._getDialerButtons(),
           SizedBox(
             height: 15,
@@ -221,7 +222,7 @@ class _DialButtonState extends State<DialButton>
   @override
   void dispose() {
     super.dispose();
-    if (widget.shouldAnimate == null || widget.shouldAnimate) _timer.cancel();
+    if (widget.shouldAnimate == null || widget.shouldAnimate  && _timer != null) _timer.cancel();
   }
 
   @override
