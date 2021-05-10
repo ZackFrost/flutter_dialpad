@@ -85,10 +85,11 @@ class _DialPadState extends State<DialPad> {
 
       items.add(DialButton(
         title: mainTitle[i],
-        subtitle: widget.enableCharacters? subTitle[i] : null,
+        subtitle: (widget.enableCharacters || subTitle[i] == "+")? subTitle[i] : null,
         color: widget.buttonColor,
         textColor: widget.buttonTextColor,
         onTap: _setText,
+        onLongPress: _setText,
       ));
     }
     //To Do: Fix this workaround for last row
@@ -186,6 +187,7 @@ class DialButton extends StatefulWidget {
   final IconData icon;
   final Color iconColor;
   final ValueSetter<String> onTap;
+  final ValueSetter<String> onLongPress;
   final bool shouldAnimate;
   DialButton(
       {this.key,
@@ -196,7 +198,8 @@ class DialButton extends StatefulWidget {
       this.icon,
       this.iconColor,
       this.shouldAnimate,
-      this.onTap});
+      this.onTap,
+      this.onLongPress});
 
   @override
   _DialButtonState createState() => _DialButtonState();
@@ -247,6 +250,10 @@ class _DialButtonState extends State<DialButton>
             });
           }
         }
+      },
+      onLongPress: (){
+        if(widget.subtitle == "+")
+          widget.onLongPress("+");
       },
       child: ClipOval(
           child: AnimatedBuilder(
