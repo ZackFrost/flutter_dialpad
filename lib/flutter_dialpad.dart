@@ -34,7 +34,7 @@ class DialPad extends StatefulWidget {
 }
 
 class _DialPadState extends State<DialPad> {
-  MaskedTextController textEditingController;
+  TextEditingController textEditingController;
   var _value = "";
   var mainTitle = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "＃"];
   var subTitle = [
@@ -54,6 +54,7 @@ class _DialPadState extends State<DialPad> {
 
   @override
   void initState() {
+    textEditingController = TextEditingController();
     // textEditingController = MaskedTextController(
     //     mask: widget.outputMask != null ? widget.outputMask : '(000) 000-0000');
     super.initState();
@@ -65,7 +66,7 @@ class _DialPadState extends State<DialPad> {
 
     setState(() {
       _value += value;
-      textEditingController.value = TextEditingValue(text: _value);
+      textEditingController.text = _value;
     });
   }
 
