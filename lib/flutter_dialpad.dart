@@ -17,6 +17,7 @@ class DialPad extends StatefulWidget {
   final bool enableDtmf;
   final bool enableCharacters;
   final bool isExpanded;
+  final bool isReadOnly;
   final Widget customWidget;
 
   DialPad(
@@ -31,7 +32,8 @@ class DialPad extends StatefulWidget {
       this.enableCharacters = false,
       this.enableDtmf,
       this.isExpanded = false,
-      this.customWidget});
+      this.customWidget,
+      this.isReadOnly = true});
 
   @override
   _DialPadState createState() => _DialPadState();
@@ -120,7 +122,7 @@ class _DialPadState extends State<DialPad> {
           Padding(
             padding: EdgeInsets.all(20),
             child: TextFormField(
-              readOnly: true,
+              readOnly: widget.isReadOnly,
               style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2),
               textAlign: TextAlign.center,
               decoration: InputDecoration(border: InputBorder.none),
