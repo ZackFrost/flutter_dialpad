@@ -65,7 +65,7 @@ class _DialPadState extends State<DialPad> {
 
     setState(() {
       _value += value;
-      textEditingController.text = _value;
+      textEditingController.value = TextEditingValue(text: _value);
     });
   }
 
