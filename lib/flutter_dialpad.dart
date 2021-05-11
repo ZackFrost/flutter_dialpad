@@ -64,7 +64,7 @@ class _DialPadState extends State<DialPad> {
   void initState() {
     // textEditingController = TextEditingController();
     textEditingController = MaskedTextController(
-        mask: widget.outputMask != null ? widget.outputMask : '+00 0000000000');
+        mask: widget.outputMask != null ? widget.outputMask : '(000) 0000000');
     super.initState();
   }
 
