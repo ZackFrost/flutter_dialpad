@@ -112,77 +112,76 @@ class _DialPadState extends State<DialPad> {
     var screenSize = MediaQuery.of(context).size;
     var sizeFactor = screenSize.height * 0.09852217;
 
-    return Center(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: TextFormField(
-              readOnly: true,
-              style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2),
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(border: InputBorder.none),
-              controller: textEditingController,
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.all(20),
+          child: TextFormField(
+            readOnly: true,
+            style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2),
+            textAlign: TextAlign.center,
+            decoration: InputDecoration(border: InputBorder.none),
+            controller: textEditingController,
+          ),
+        ),
+        if(widget.customWidget != null)
+          widget.customWidget,
+
+        if(widget.isExpanded)
+        Expanded(child: Container(),),
+
+        ..._getDialerButtons(),
+        SizedBox(
+          height: 15,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              child: Container(),
             ),
-          ),
-          if(widget.customWidget != null)
-            widget.customWidget,
-
-          if(widget.isExpanded)
-          Expanded(child: Container(),),
-
-          ..._getDialerButtons(),
-          SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(
-                child: Container(),
-              ),
-              Expanded(
-                child: Center(
-                  child: DialButton(
-                    icon: Icons.phone,
-                    color: Colors.green,
-                    onTap: (value) {
-                      widget.makeCall(_value);
-                    },
-                  ),
+            Expanded(
+              child: Center(
+                child: DialButton(
+                  icon: Icons.phone,
+                  color: Colors.green,
+                  onTap: (value) {
+                    widget.makeCall(_value);
+                  },
                 ),
               ),
-              Expanded(
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(right: screenSize.height * 0.03685504),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.backspace,
-                      size: sizeFactor / 2,
-                      color: _value.length > 0
-                          ? (widget.backspaceButtonIconColor != null
-                              ? widget.backspaceButtonIconColor
-                              : Colors.white24)
-                          : Colors.white24,
-                    ),
-                    onPressed: _value.length == 0
-                        ? null
-                        : () {
-                            if (_value != null && _value.length > 0) {
-                              setState(() {
-                                _value = _value.substring(0, _value.length - 1);
-                                textEditingController.text = _value;
-                              });
-                            }
-                          },
+            ),
+            Expanded(
+              child: Padding(
+                padding:
+                    EdgeInsets.only(right: screenSize.height * 0.03685504),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.backspace,
+                    size: sizeFactor / 2,
+                    color: _value.length > 0
+                        ? (widget.backspaceButtonIconColor != null
+                            ? widget.backspaceButtonIconColor
+                            : Colors.white24)
+                        : Colors.white24,
                   ),
+                  onPressed: _value.length == 0
+                      ? null
+                      : () {
+                          if (_value != null && _value.length > 0) {
+                            setState(() {
+                              _value = _value.substring(0, _value.length - 1);
+                              textEditingController.text = _value;
+                            });
+                          }
+                        },
                 ),
-              )
-            ],
-          )
-        ],
-      ),
+              ),
+            )
+          ],
+        )
+      ],
     );
   }
 }
