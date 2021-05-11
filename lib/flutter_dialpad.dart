@@ -126,7 +126,7 @@ class _DialPadState extends State<DialPad> {
             child: TextFormField(
               readOnly: widget.isReadOnly,
               maxLength: widget.maxLength,
-              style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2),
+              style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 3),
               textAlign: TextAlign.center,
               decoration: InputDecoration(border: InputBorder.none),
               controller: textEditingController,
