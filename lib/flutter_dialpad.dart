@@ -16,6 +16,8 @@ class DialPad extends StatefulWidget {
   final String outputMask;
   final bool enableDtmf;
   final bool enableCharacters;
+  final bool isExpanded;
+  final Widget customWidget;
 
   DialPad(
       {this.makeCall,
@@ -27,7 +29,9 @@ class DialPad extends StatefulWidget {
       this.backspaceButtonIconColor,
       this.dialedNumberColor,  
       this.enableCharacters = false,
-      this.enableDtmf});
+      this.enableDtmf,
+      this.isExpanded = false,
+      this.customWidget});
 
   @override
   _DialPadState createState() => _DialPadState();
@@ -121,8 +125,12 @@ class _DialPadState extends State<DialPad> {
               controller: textEditingController,
             ),
           ),
-          Expanded(
-          child: Container()),
+          if(widget.customWidget != null)
+            widget.customWidget,
+
+          if(widget.isExpanded)
+          Expanded(child: Container(),),
+
           ..._getDialerButtons(),
           SizedBox(
             height: 15,
