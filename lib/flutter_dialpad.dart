@@ -115,7 +115,6 @@ class _DialPadState extends State<DialPad> {
             padding: EdgeInsets.all(20),
             child: TextFormField(
               readOnly: true,
-              keyboardType: TextInputType.phone,
               style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2),
               textAlign: TextAlign.center,
               decoration: InputDecoration(border: InputBorder.none),
