@@ -19,6 +19,7 @@ class DialPad extends StatefulWidget {
   final bool isExpanded;
   final bool isReadOnly;
   final Widget customWidget;
+  final int maxLength;
 
   DialPad(
       {this.makeCall,
@@ -33,14 +34,15 @@ class DialPad extends StatefulWidget {
       this.enableDtmf,
       this.isExpanded = false,
       this.customWidget,
-      this.isReadOnly = true});
+      this.isReadOnly = true,
+      this.maxLength});
 
   @override
   _DialPadState createState() => _DialPadState();
 }
 
 class _DialPadState extends State<DialPad> {
-  TextEditingController textEditingController;
+  var textEditingController;
   var _value = "";
   var mainTitle = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "＃"];
   var subTitle = [
@@ -60,9 +62,9 @@ class _DialPadState extends State<DialPad> {
 
   @override
   void initState() {
-    textEditingController = TextEditingController();
-    // textEditingController = MaskedTextController(
-    //     mask: widget.outputMask != null ? widget.outputMask : '(000) 000-0000');
+    // textEditingController = TextEditingController();
+    textEditingController = MaskedTextController(
+        mask: widget.outputMask != null ? widget.outputMask : '(+00) 00000-00000');
     super.initState();
   }
 
@@ -123,6 +125,7 @@ class _DialPadState extends State<DialPad> {
             padding: EdgeInsets.all(20),
             child: TextFormField(
               readOnly: widget.isReadOnly,
+              maxLength: widget.maxLength,
               style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2),
               textAlign: TextAlign.center,
               decoration: InputDecoration(border: InputBorder.none),
