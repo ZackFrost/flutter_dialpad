@@ -64,7 +64,7 @@ class _DialPadState extends State<DialPad> {
   void initState() {
     // textEditingController = TextEditingController();
     textEditingController = MaskedTextController(
-        mask: widget.outputMask != null ? widget.outputMask : '(+00) 00000-00000');
+        mask: widget.outputMask != null ? widget.outputMask : '+00 0000000000');
     super.initState();
   }
 
@@ -126,7 +126,7 @@ class _DialPadState extends State<DialPad> {
             child: TextFormField(
               readOnly: widget.isReadOnly,
               maxLength: widget.maxLength,
-              style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 3),
+              style: TextStyle(color: widget.dialedNumberColor, fontSize: sizeFactor / 2.4),
               textAlign: TextAlign.center,
               decoration: InputDecoration(border: InputBorder.none),
               controller: textEditingController,
