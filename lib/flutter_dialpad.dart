@@ -158,8 +158,8 @@ class _DialPadState extends State<DialPad> {
                 child: Padding(
                   padding:
                       EdgeInsets.only(right: screenSize.height * 0.03685504),
-                  child: IconButton(
-                    icon: Icon(
+                  child: GestureDetector(
+                    child: Icon(
                       Icons.backspace,
                       size: sizeFactor / 2,
                       color: _value.length > 0
@@ -168,7 +168,7 @@ class _DialPadState extends State<DialPad> {
                               : Colors.white24)
                           : Colors.white24,
                     ),
-                    onPressed: _value.length == 0
+                    onTap: _value.length == 0
                         ? null
                         : () {
                             if (_value != null && _value.length > 0) {
@@ -178,6 +178,14 @@ class _DialPadState extends State<DialPad> {
                               });
                             }
                           },
+                    onLongPress: _value.length == 0
+                        ? null
+                        : (){
+                      setState(() {
+                        textEditingController.clear();
+                        _value = "";
+                      });
+                    }
                   ),
                 ),
               )
