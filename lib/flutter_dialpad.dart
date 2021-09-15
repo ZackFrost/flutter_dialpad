@@ -144,8 +144,9 @@ class _DialPadState extends State<DialPad> {
               ),
               Expanded(
                 child: GestureDetector(
-                    child: Padding(
-                      padding: EdgeInsets.all(screenSize.height * 0.03685504),
+                    child: Container(
+                      margin: EdgeInsets.only(right: screenSize.height * 0.03685504),
+                      padding: EdgeInsets.all(10),
                       child: Icon(
                         Icons.backspace,
                         size: sizeFactor / 2,
