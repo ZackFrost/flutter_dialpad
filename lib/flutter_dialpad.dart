@@ -29,7 +29,7 @@ class DialPad extends StatefulWidget {
       this.dialButtonColor,
       this.dialButtonIconColor,
       this.backspaceButtonIconColor,
-      this.dialedNumberColor,  
+      this.dialedNumberColor,
       this.enableCharacters = false,
       this.enableDtmf,
       this.isExpanded = false,
@@ -45,20 +45,7 @@ class _DialPadState extends State<DialPad> {
   var textEditingController;
   var _value = "";
   var mainTitle = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "＃"];
-  var subTitle = [
-    "",
-    "ABC",
-    "DEF",
-    "GHI",
-    "JKL",
-    "MNO",
-    "PQRS",
-    "TUV",
-    "WXYZ",
-    null,
-    "+",
-    null
-  ];
+  var subTitle = ["", "ABC", "DEF", "GHI", "JKL", "MNO", "PQRS", "TUV", "WXYZ", null, "+", null];
 
   @override
   void initState() {
@@ -69,8 +56,7 @@ class _DialPadState extends State<DialPad> {
   }
 
   _setText(String value) async {
-    if (widget.enableDtmf == null || widget.enableDtmf)
-      FlutterDtmf.playTone(digits: value);
+    if (widget.enableDtmf == null || widget.enableDtmf) FlutterDtmf.playTone(digits: value);
 
     setState(() {
       _value += value;
@@ -84,8 +70,7 @@ class _DialPadState extends State<DialPad> {
 
     for (var i = 0; i < mainTitle.length; i++) {
       if (i % 3 == 0 && i > 0) {
-        rows.add(Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: items));
+        rows.add(Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: items));
         rows.add(SizedBox(
           height: 12,
         ));
@@ -94,7 +79,7 @@ class _DialPadState extends State<DialPad> {
 
       items.add(DialButton(
         title: mainTitle[i],
-        subtitle: (widget.enableCharacters || subTitle[i] == "+")? subTitle[i] : null,
+        subtitle: (widget.enableCharacters || subTitle[i] == "+") ? subTitle[i] : null,
         color: widget.buttonColor,
         textColor: widget.buttonTextColor,
         onTap: _setText,
@@ -102,8 +87,7 @@ class _DialPadState extends State<DialPad> {
       ));
     }
     //To Do: Fix this workaround for last row
-    rows.add(
-        Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: items));
+    rows.add(Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: items));
     rows.add(SizedBox(
       height: 12,
     ));
@@ -132,12 +116,11 @@ class _DialPadState extends State<DialPad> {
               controller: textEditingController,
             ),
           ),
-          if(widget.customWidget != null)
-            widget.customWidget,
-
-          if(widget.isExpanded)
-          Expanded(child: Container(),),
-
+          if (widget.customWidget != null) widget.customWidget,
+          if (widget.isExpanded)
+            Expanded(
+              child: Container(),
+            ),
           ..._getDialerButtons(),
           SizedBox(
             height: 15,
@@ -160,18 +143,15 @@ class _DialPadState extends State<DialPad> {
                 ),
               ),
               Expanded(
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(right: screenSize.height * 0.03685504),
-                  child: GestureDetector(
-                    child: Icon(
-                      Icons.backspace,
-                      size: sizeFactor / 2,
-                      color: _value.length > 0
-                          ? (widget.backspaceButtonIconColor != null
-                              ? widget.backspaceButtonIconColor
-                              : Colors.white24)
-                          : Colors.white24,
+                child: GestureDetector(
+                    child: Padding(
+                      padding: EdgeInsets.all(screenSize.height * 0.03685504),
+                      child: Icon(
+                        Icons.backspace,
+                        size: sizeFactor / 2,
+                        color:
+                            _value.length > 0 ? (widget.backspaceButtonIconColor != null ? widget.backspaceButtonIconColor : Colors.white24) : Colors.white24,
+                      ),
                     ),
                     onTap: _value.length == 0
                         ? null
@@ -185,14 +165,12 @@ class _DialPadState extends State<DialPad> {
                           },
                     onLongPress: _value.length == 0
                         ? null
-                        : (){
-                      setState(() {
-                        textEditingController.clear();
-                        _value = "";
-                      });
-                    }
-                  ),
-                ),
+                        : () {
+                            setState(() {
+                              textEditingController.clear();
+                              _value = "";
+                            });
+                          }),
               )
             ],
           )
@@ -213,36 +191,22 @@ class DialButton extends StatefulWidget {
   final ValueSetter<String> onTap;
   final ValueSetter<String> onLongPress;
   final bool shouldAnimate;
-  DialButton(
-      {this.key,
-      this.title,
-      this.subtitle,
-      this.color,
-      this.textColor,
-      this.icon,
-      this.iconColor,
-      this.shouldAnimate,
-      this.onTap,
-      this.onLongPress});
+
+  DialButton({this.key, this.title, this.subtitle, this.color, this.textColor, this.icon, this.iconColor, this.shouldAnimate, this.onTap, this.onLongPress});
 
   @override
   _DialButtonState createState() => _DialButtonState();
 }
 
-class _DialButtonState extends State<DialButton>
-    with SingleTickerProviderStateMixin {
+class _DialButtonState extends State<DialButton> with SingleTickerProviderStateMixin {
   AnimationController _animationController;
   Animation _colorTween;
   Timer _timer;
 
   @override
   void initState() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
-    _colorTween = ColorTween(
-            begin: widget.color != null ? widget.color : Colors.white24,
-            end: Colors.white)
-        .animate(_animationController);
+    _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _colorTween = ColorTween(begin: widget.color != null ? widget.color : Colors.white24, end: Colors.white).animate(_animationController);
 
     super.initState();
   }
@@ -250,7 +214,7 @@ class _DialButtonState extends State<DialButton>
   @override
   void dispose() {
     super.dispose();
-    if (widget.shouldAnimate == null || widget.shouldAnimate  && _timer != null) _timer.cancel();
+    if (widget.shouldAnimate == null || widget.shouldAnimate && _timer != null) _timer?.cancel();
   }
 
   @override
@@ -275,9 +239,8 @@ class _DialButtonState extends State<DialButton>
           }
         }
       },
-      onLongPress: (){
-        if(widget.subtitle == "+")
-          widget.onLongPress("+");
+      onLongPress: () {
+        if (widget.subtitle == "+") widget.onLongPress("+");
       },
       child: ClipOval(
           child: AnimatedBuilder(
@@ -295,17 +258,9 @@ class _DialButtonState extends State<DialButton>
                                           padding: EdgeInsets.only(top: 8),
                                           child: Text(
                                             widget.title,
-                                            style: TextStyle(
-                                                fontSize: sizeFactor / 2,
-                                                color: widget.textColor != null
-                                                    ? widget.textColor
-                                                    : Colors.white),
+                                            style: TextStyle(fontSize: sizeFactor / 2, color: widget.textColor != null ? widget.textColor : Colors.white),
                                           )),
-                                      Text(widget.subtitle,
-                                          style: TextStyle(
-                                              color: widget.textColor != null
-                                                  ? widget.textColor
-                                                  : Colors.white))
+                                      Text(widget.subtitle, style: TextStyle(color: widget.textColor != null ? widget.textColor : Colors.white))
                                     ],
                                   )
                                 : Padding(
@@ -313,16 +268,12 @@ class _DialButtonState extends State<DialButton>
                                     child: Text(
                                       widget.title,
                                       style: TextStyle(
-                                          fontSize: (widget.title == "*" || widget.title == "#") &&
-                                                  widget.subtitle == null
+                                          fontSize: (widget.title == "*" || widget.title == "#") && widget.subtitle == null
                                               ? screenSize.height * 0.0862069
                                               : sizeFactor / 2,
-                                          color: widget.textColor != null
-                                              ? widget.textColor
-                                              : Colors.white),
+                                          color: widget.textColor != null ? widget.textColor : Colors.white),
                                     ))
-                            : Icon(widget.icon,
-                                size: sizeFactor / 2, color: widget.iconColor != null ? widget.iconColor : Colors.white)),
+                            : Icon(widget.icon, size: sizeFactor / 2, color: widget.iconColor != null ? widget.iconColor : Colors.white)),
                   ))),
     );
   }
