@@ -98,7 +98,7 @@ class _DialPadState extends State<DialPad> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    var sizeFactor = screenSize.height * 0.09852217;
+    var sizeFactor = screenSize.height * 0.09952217;
 
     return Container(
       padding: const EdgeInsets.only(bottom: 10),
